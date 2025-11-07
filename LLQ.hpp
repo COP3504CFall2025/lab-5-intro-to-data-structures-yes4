@@ -11,18 +11,64 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLQ();
+    LLQ() = default;
+
+    LLQ(const LLQ& other) : list(other.list) {}
+
+    LLQ& operator=(const LLQ& other) {
+        if (this != &other) {
+            list = other.list;
+        }
+        return *this;
+    }
+
+    LLQ(LLQ&& other) noexcept : list(std::move(other.list)) {
+        other.list.clear();
+    }
+
+    LLQ& operator=(LLQ&& other) noexcept {
+        if (this != &other) {
+            list = std::move(other.list);
+        }
+        return *this;
+    }
+
+    ~LLQ() = default;
 
     // Insertion
-    void enqueue(const T& item) override;
+    void enqueue(const T& item) override {
+        list.addTail(item);
+    }
 
     // Deletion
-    T dequeue() override;
+    T dequeue() override {
+        if (list.empty()) {
+            throw std::out_of_range("is empty");
+        }
+        T val = list.getHead()->data;
+        list.removeHead();
+        return val;
+    }
 
     // Access
-    T peek() const override;
+    T peek() const override {
+        if (list.empty()) {
+            throw std::out_of_range("is empty");
+        }
+        return list.getHead()->data;
+    }
 
     // Getter
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override {
+        return list.getCount();
+    }
+
+    void printForward() {
+        list.printForward();
+    }
+
+    void printReverse() {
+        list.printReverse();
+    }
 
 };
