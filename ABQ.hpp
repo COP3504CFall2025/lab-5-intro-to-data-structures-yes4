@@ -18,7 +18,7 @@ class ABQ : public QueueInterface<T>{
 
 public:
     // Constructors + Big 5
-    ABQ() : array_(new T[1]), capacity_(1), curr_size_(0) {}
+    ABQ() : capacity_(0), curr_size_(0), array_(new T[1]) {}
 
     explicit ABQ(const size_t capacity) : curr_size_(0), array_(new T[capacity_]), capacity_(capacity) {}
 
@@ -57,6 +57,7 @@ public:
             rhs.curr_size_ = 0;
             rhs.capacity_ = 0;
         }
+        return *this;
     }
 
     ~ABQ() noexcept override {
@@ -90,7 +91,7 @@ public:
     // Access
     T peek() const override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         return array_[0];
     }
@@ -98,7 +99,7 @@ public:
     // Deletion
     T dequeue() override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         T front = array_[0];
         for (size_t i = 1; i < curr_size_; i++) {
@@ -110,14 +111,14 @@ public:
 
     void printForward() {
         for (size_t i = 0; i < curr_size_; i++) {
-            std::cout << array_[i];
+            std::cout << array_[i] << " ";
         }
         std::cout << std::endl;
     }
 
     void printReverse() {
         for (size_t i = curr_size_; i > 0; i--) {
-            std::cout << array_[i-1];
+            std::cout << array_[i-1] << " ";
         }
         std::cout << std::endl;
     }
