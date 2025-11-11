@@ -32,7 +32,7 @@ private:
         data_ = newData;
         capacity_ = newCapacity;
         front_ = 0;
-        back_ = size_;
+        back_ = size_ - 1;
     }
 
     void shrinkIfNeeded() {
@@ -45,6 +45,7 @@ private:
 
         size_t newCapacity = capacity_ / 2;
         T* newData = new T[newCapacity];
+
         for (std::size_t i = 0; i < size_; ++i) {
             newData[i] = data_[i];
         }
@@ -52,7 +53,7 @@ private:
         data_ = newData;
         capacity_ = newCapacity;
         front_ = 0;
-        back_ = size_;
+        back_ = size_ - 1;
     }
 
 public:
@@ -115,12 +116,18 @@ public:
         ensureCapacity();
         data_[front_] = item;
         ++size_;
+        if (size_ == 1) {
+            front_ = back_;
+        }
     }
 
     void pushBack(const T& item) override {
         ensureCapacity();
         data_[back_] = item;
         ++size_;
+        if (size_ == 1) {
+            front_ = back_;
+        }
     }
 
     // Deletion

@@ -83,6 +83,7 @@ public:
             capacity_ = new_capacity;
         }
         array_[curr_size_] = data;
+        curr_size_++;
     }
 
     T peek() const override {
