@@ -107,7 +107,7 @@ public:
         }
         curr_size_--;
 
-        if (curr_size_ > 0 && curr_size_ < capacity_ / 2) {
+        if (curr_size_ > 0 && capacity_ >= 4 && curr_size_ * 4 <= capacity_) {
             size_t new_cap = capacity_ / 2;
             if (new_cap < 1) new_cap = 1;
             T* new_array = new T[new_cap];
