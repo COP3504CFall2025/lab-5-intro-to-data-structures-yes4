@@ -26,6 +26,7 @@ public:
 
     LLQ& operator=(LLQ&& other) noexcept {
         if (this != &other) {
+            list.clear();
             list = std::move(other.list);
         }
         return *this;

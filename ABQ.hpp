@@ -101,6 +101,7 @@ public:
         if (curr_size_ == 0) {
             throw std::runtime_error("is empty");
         }
+        curr_size_--;
         T front = array_[0];
         for (size_t i = 1; i < curr_size_; i++) {
             array_[i-1] = array_[i];

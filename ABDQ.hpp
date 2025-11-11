@@ -103,7 +103,9 @@ public:
             other.back_ = 0;
             other.size_ = 0;
         }
+        return *this;
     }
+
     ~ABDQ() override {
         delete[] data_;
     }

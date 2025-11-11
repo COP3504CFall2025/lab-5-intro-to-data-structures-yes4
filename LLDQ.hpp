@@ -48,7 +48,7 @@ public:
 
     // Core Removal Operations
     T popFront() override {
-        if (list.isEmpty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         T val = list.getHead()->data;

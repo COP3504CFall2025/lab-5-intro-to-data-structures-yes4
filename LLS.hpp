@@ -26,6 +26,7 @@ public:
 
     LLS& operator=(LLS&& rhs) noexcept {
         if (this != &rhs) {
+            list.clear();
             list = std::move(rhs.list);
         }
         return *this;
