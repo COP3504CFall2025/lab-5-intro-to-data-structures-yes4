@@ -88,17 +88,17 @@ public:
 
     T peek() const override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         return array_[curr_size_ - 1];
     }
 
     T pop() override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         --curr_size_;
-        return array_[curr_size_ - 1];
+        return array_[curr_size_];
     }
 
     void printForward() {

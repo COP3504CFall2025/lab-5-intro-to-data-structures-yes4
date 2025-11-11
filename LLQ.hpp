@@ -42,7 +42,7 @@ public:
     // Deletion
     T dequeue() override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         T val = list.getHead()->data;
         list.removeHead();
@@ -52,7 +52,7 @@ public:
     // Access
     T peek() const override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         return list.getHead()->data;
     }

@@ -25,7 +25,7 @@ private:
         T* newData = new T[newCapacity];
 
         for (std::size_t i = 0; i < size_; ++i) {
-            newData[i] = data_[i];
+            newData[i] = data_[(front_ + i) % capacity_];
         }
 
         delete[] data_;
@@ -47,8 +47,9 @@ private:
         T* newData = new T[newCapacity];
 
         for (std::size_t i = 0; i < size_; ++i) {
-            newData[i] = data_[i];
+            newData[i] = data_[(front_ + i) % capacity_];
         }
+
         delete[] data_;
         data_ = newData;
         capacity_ = newCapacity;
@@ -114,28 +115,37 @@ public:
     // Insertion
     void pushFront(const T& item) override {
         ensureCapacity();
-        data_[front_] = item;
-        ++size_;
-        if (size_ == 1) {
-            front_ = back_;
+        if (size_ == 0) {
+            data_[front_] = item;
         }
+        else {
+            front_ = (front_ - 1 + capacity_) % capacity_;
+            data_[front_] = item;
+        }
+        ++size_;
     }
 
     void pushBack(const T& item) override {
         ensureCapacity();
-        data_[back_] = item;
-        ++size_;
-        if (size_ == 1) {
-            front_ = back_;
+        if (size_ == 0) {
+            data_[back_] = item;
         }
+        else {
+            back_ = (back_ + 1) % capacity_;
+            data_[back_] = item;
+        }
+        ++size_;
     }
 
     // Deletion
     T popFront() override {
         if (size_ == 0) {
-            throw std::out_of_range("Empty");
+            throw std::runtime_error("Empty");
         }
         T value = data_[front_];
+        if (size > 1) {
+            front_ = (front_ + 1) % capacity_;
+        }
         --size_;
         shrinkIfNeeded();
         return value;
@@ -143,9 +153,12 @@ public:
 
     T popBack() override {
         if (size_ == 0) {
-            throw std::out_of_range("Empty");
+            throw std::runtime_error("Empty");
         }
         T value = data_[back_];
+        if (size_ > 1) {
+            back_ = (back_ - 1 + capacity_) % capacity_;
+        }
         --size_;
         shrinkIfNeeded();
         return value;
@@ -154,14 +167,14 @@ public:
     // Access
     const T& front() const override {
         if (size_ == 0) {
-            throw std::out_of_range("Empty");
+            throw std::runtime_error("Empty");
         }
         return data_[front_];
     }
 
     const T& back() const override {
         if (size_ == 0) {
-            throw std::out_of_range("Empty");
+            throw std::runtime_error("Empty");
         }
         return data_[back_];
     }

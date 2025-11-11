@@ -49,7 +49,7 @@ public:
     // Core Removal Operations
     T popFront() override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         T val = list.getHead()->data;
         list.removeHead();
@@ -58,7 +58,7 @@ public:
 
     T popBack() override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         T val = list.getTail()->data;
         list.removeTail();
@@ -68,13 +68,13 @@ public:
     // Element Accessors
     const T& front() const override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         return list.getHead()->data;
     }
     const T& back() const override {
         if (list.getCount() == 0) {
-            throw std::out_of_range("is empty");
+            throw std::runtime_error("is empty");
         }
         return list.getTail()->data;
     }
