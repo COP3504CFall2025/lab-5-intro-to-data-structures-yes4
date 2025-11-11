@@ -99,6 +99,17 @@ public:
         }
         --curr_size_;
         T val = array_[curr_size_];
+
+        if (capacity_ > 1 && curr_size_ > 0 && curr_size_ <= capacity_ / 4) {
+            size_t new_capacity = capacity_ / 2;
+            T* new_array = new T[new_capacity];
+            for (size_t i = 0; i < curr_size_; i++) {
+                new_array[i] = array_[i];
+            }
+            delete[] array_;
+            array_ = new_array;
+            capacity_ = new_capacity;
+        }
         return val;
     }
 
