@@ -19,9 +19,7 @@ public:
 		Node* current = head;
         while (current) {
         	std::cout << current->data << " ";
-            if (current->next != nullptr) {
-          		current = current->next;
-            }
+            current = current->next;
 		}
         std::cout << std::endl;
 	}
@@ -29,9 +27,7 @@ public:
 		Node* current = tail;
         while (current) {
 			std::cout << current->data << " ";
-            if (current->prev != nullptr) {
-				current = current->prev;
-            }
+            current = current->prev;
         }
         std::cout << std::endl;
 	}
@@ -129,7 +125,7 @@ public:
 	}
 
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
-		if (this == &rhs) {
+		if (this != &rhs) {
  			clear();
             Node* current = rhs.head;
             while (current != nullptr) {
@@ -143,7 +139,7 @@ public:
 	// Construction/Destruction
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {};
 	LinkedList(const LinkedList<T>& list) : head(list.head), tail(list.tail), count(list.count) {
-		Node* current = list.head;
+		Node* current = other.head;
 		while (current != nullptr) {
 			addTail(current->data);
 			current = current->next;

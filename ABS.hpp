@@ -12,13 +12,13 @@ template<typename T>
 class ABS : public StackInterface<T> {
 public:
     // Big 5 + Parameterized Constructor
-    ABS() : array_(new T(1)), capacity_(1), curr_size_(0) {
+    ABS() : array_(new T[1]), capacity_(1), curr_size_(0) {
     }
 
-    explicit ABS(const size_t capacity) : array_(new T(capacity)), capacity_(capacity), curr_size_(0) {
+    explicit ABS(const size_t capacity) : array_(new T[capacity]), capacity_(capacity), curr_size_(0) {
     }
 
-    ABS(const ABS &other) : array_(new T(other.capacity_)), capacity_(other.capacity_), curr_size_(other.curr_size_) {
+    ABS(const ABS &other) : array_(new T[other.capacity_]), capacity_(other.capacity_), curr_size_(other.curr_size_) {
         for (size_t i = 0; i < curr_size_; i++) {
             array_[i] = other.array_[i];
         }
@@ -30,7 +30,7 @@ public:
             delete[] array_;
             capacity_ = rhs.capacity_;
             curr_size_ = rhs.curr_size_;
-            array_ = new T(capacity_);
+            array_ = new T[capacity_];
             for (size_t i = 0; i < curr_size_; i++) {
                 array_[i] = rhs.array_[i];
             }
@@ -82,7 +82,7 @@ public:
             array_ = temp_array_;
             capacity_ = new_capacity;
         }
-        array_[curr_size_ + 1] = data;
+        array_[curr_size_] = data;
     }
 
     T peek() const override {
@@ -96,6 +96,7 @@ public:
         if (curr_size_ == 0) {
             throw std::out_of_range("is empty");
         }
+        --curr_size_;
         return array_[curr_size_ - 1];
     }
 

@@ -28,13 +28,65 @@ public:
         }
     }
 
-    ABDQ(ABDQ&& other) noexcept : data_(other.data)
-    ABDQ& operator=(const ABDQ& other);
-    ABDQ& operator=(ABDQ&& other) noexcept;
-    ~ABDQ() override;
+    ABDQ(ABDQ&& other) noexcept : data_(other.data), capacity_(other.capacity_), size_(other.size_), front_(other.front_), back_(other.back_) {
+        other.data_ = nullptr;
+        other.capacity_ = 0;
+        other.front_ = 0;
+        other.back_ = 0;
+        other.size_ = 0;
+    }
+    ABDQ& operator=(const ABDQ& other) {
+        if (this != &other) {
+            delete[] data_;
+            data_ = new T[other.capacity_];
+            capacity_ = other.capacity_;
+            size_ = other.size_;
+            front_ = other.front_;
+            back_ = other.back_;
+            for (std::size_t i = 0; i < capacity_; i++) {
+                data_[i] = other.data_[i];
+            }
+        }
+        return *this;
+    }
+
+    ABDQ& operator=(ABDQ&& other) noexcept {
+        if (this != &other) {
+            delete[] data_;
+            data_ = other.data_;
+            capacity_ = other.capacity_;
+            size_ = other.size_;
+            front_ = other.front_;
+            back_ = other.back_;
+            other.data_ = nullptr;
+            other.capacity_ = 0;
+            other.front_ = 0;
+            other.back_ = 0;
+            other.size_ = 0;
+        }
+    }
+    ~ABDQ() override {
+        delete[] data_;
+    }
 
     // Insertion
-    void pushFront(const T& item) override;
+    void pushFront(const T& item) override {
+        if (size_ == capacity_) {
+            std::size_t newCapacity = capacity_ * SCALE_FACTOR;
+            T* newData = new T[newCapacity];
+            for (std::size_t i = 0; i < capacity_; i++) {
+                newData[i] = data_[i];
+            }
+            delete[] data_;
+            data_ = newData;
+            capacity_ = newCapacity;
+            front_ = 0;
+            back_ = size_;
+        }
+        data_[front_] = item;
+        size_++;
+    }
+
     void pushBack(const T& item) override;
 
     // Deletion
