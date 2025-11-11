@@ -139,7 +139,7 @@ public:
 	// Construction/Destruction
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {};
 	LinkedList(const LinkedList<T>& list) : head(list.head), tail(list.tail), count(list.count) {
-		Node* current = other.head;
+		Node* current = list.head;
 		while (current != nullptr) {
 			addTail(current->data);
 			current = current->next;
