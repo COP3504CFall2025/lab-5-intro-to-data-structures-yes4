@@ -143,7 +143,7 @@ public:
             throw std::runtime_error("Empty");
         }
         T value = data_[front_];
-        if (size > 1) {
+        if (size_ > 1) {
             front_ = (front_ + 1) % capacity_;
         }
         --size_;

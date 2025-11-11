@@ -15,7 +15,7 @@ public:
     ABS() : capacity_(1), curr_size_(0), array_(new T[1]) {
     }
 
-    explicit ABS(const size_t capacity) : array_(new T[capacity]), capacity_(capacity), curr_size_(0) {
+    explicit ABS(const size_t capacity) : capacity_(capacity), curr_size_(0), array_(new T[capacity]) {
     }
 
     ABS(const ABS &other) : array_(new T[other.capacity_]), capacity_(other.capacity_), curr_size_(other.curr_size_) {
@@ -38,7 +38,7 @@ public:
         return *this;
     }
 
-    ABS(ABS &&other) noexcept : array_(other.array_), capacity_(other.capacity_), curr_size_(other.curr_size_) {
+    ABS(ABS &&other) noexcept : capacity_(other.capacity_), curr_size_(other.curr_size_), array_(other.array_) {
         other.array_ = nullptr;
         other.capacity_ = 0;
         other.curr_size_ = 0;
@@ -98,7 +98,8 @@ public:
             throw std::runtime_error("is empty");
         }
         --curr_size_;
-        return array_[curr_size_];
+        T val = array_[curr_size_];
+        return val;
     }
 
     void printForward() {
