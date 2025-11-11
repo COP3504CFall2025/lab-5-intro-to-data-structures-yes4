@@ -39,7 +39,7 @@ private:
         if (capacity_ <= 4) {
             return;
         }
-        if (size * 4 >= capacity_) {
+        if (size_ * 4 >= capacity_) {
             return;
         }
 
@@ -61,7 +61,7 @@ public:
 
     explicit ABDQ(std::size_t capacity) : data_(new T[capacity]), capacity_(capacity), size_(0), front_(0), back_(0) {}
 
-    ABDQ(const ABDQ& other) : data(new T[other.capacity_]), capacity_(other.capacity_), size_(other.size_), front_(other.front_), back_(other.back_) {
+    ABDQ(const ABDQ& other) : data_(new T[other.capacity_]), capacity_(other.capacity_), size_(other.size_), front_(other.front_), back_(other.back_) {
         for (std::size_t i = 0; i < other.capacity_; i++) {
             data_[i] = other.data_[i];
         }
