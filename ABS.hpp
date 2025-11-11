@@ -100,7 +100,7 @@ public:
         --curr_size_;
         T val = array_[curr_size_];
 
-        while (curr_size > 0 && capacity_ >= curr_size_ * 2) {
+        while (curr_size_ > 0 && capacity_ >= curr_size_ * 2) {
             size_t new_capacity = capacity_ / 2;
             if (new_capacity < 1) new_capacity = 1;
             T* new_array = new T[new_capacity];
