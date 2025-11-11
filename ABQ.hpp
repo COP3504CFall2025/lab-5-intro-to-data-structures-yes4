@@ -18,12 +18,12 @@ class ABQ : public QueueInterface<T>{
 
 public:
     // Constructors + Big 5
-    ABQ() : capacity_(0), curr_size_(0), array_(new T[1]) {}
+    ABQ() : capacity_(1), curr_size_(0), array_(new T[1]) {}
 
-    explicit ABQ(const size_t capacity) : curr_size_(0), array_(new T[capacity_]), capacity_(capacity) {}
+    explicit ABQ(const size_t capacity) : capacity_(capacity), curr_size_(0), array_(new T[capacity]) {}
 
     ABQ(const ABQ& other) : capacity_(other.capacity_), curr_size_(other.curr_size_), array_(new T[other.capacity_]) {
-        for (size_t i = 0; i < capacity_; i++) {
+        for (size_t i = 0; i < curr_size_; i++) {
             array_[i] = other.array_[i];
         }
     }

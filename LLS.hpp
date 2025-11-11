@@ -13,7 +13,7 @@ public:
     // Constructor
     LLS() = default;
 
-    LLS(const LL& other) : list(other.list) {}
+    LLS(const LLS& other) : list(other.list) {}
 
     LLS& operator=(const LLS& rhs) {
         if (this != &rhs) {
@@ -40,7 +40,7 @@ public:
 
     // Deletion
     T pop() override {
-        if (list.empty()) {
+        if (list.getCount() == 0) {
             throw std::runtime_error("is empty");
         }
         T val = list.getHead()->data;
@@ -50,7 +50,7 @@ public:
 
     // Access
     T peek() const override {
-        if (list.empty()) {
+        if (list.getCount() == 0) {
             throw std::runtime_error("is empty");
         }
         return list.getHead()->data;
@@ -65,7 +65,7 @@ public:
         list.printForward();
     }
 
-    void printBackward() {
-        list.printBackward();
+    void printReverse() {
+        list.printReverse();
     }
 };

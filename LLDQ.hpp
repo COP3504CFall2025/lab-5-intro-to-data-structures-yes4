@@ -57,7 +57,7 @@ public:
     }
 
     T popBack() override {
-        if (list.isEmpty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         T val = list.getTail()->data;
@@ -67,13 +67,13 @@ public:
 
     // Element Accessors
     const T& front() const override {
-        if (list.isEmpty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         return list.getHead()->data;
     }
     const T& back() const override {
-        if (list.isEmpty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         return list.getTail()->data;

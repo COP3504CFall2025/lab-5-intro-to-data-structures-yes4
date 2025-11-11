@@ -22,9 +22,7 @@ public:
         return *this;
     }
 
-    LLQ(LLQ&& other) noexcept : list(std::move(other.list)) {
-        other.list.clear();
-    }
+    LLQ(LLQ&& other) noexcept : list(std::move(other.list)) {}
 
     LLQ& operator=(LLQ&& other) noexcept {
         if (this != &other) {
@@ -42,7 +40,7 @@ public:
 
     // Deletion
     T dequeue() override {
-        if (list.empty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         T val = list.getHead()->data;
@@ -52,7 +50,7 @@ public:
 
     // Access
     T peek() const override {
-        if (list.empty()) {
+        if (list.getCount() == 0) {
             throw std::out_of_range("is empty");
         }
         return list.getHead()->data;
